@@ -25,11 +25,11 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin: 0;
   color: var(--neon-green);
   text-transform: uppercase;
@@ -44,7 +44,8 @@ h1 {
   border: 1px solid var(--neon-green);
   text-align: center;
   margin-bottom: 2rem;
-  min-width: 300px;
+  min-width: 350px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .currency {
@@ -56,77 +57,96 @@ h1 {
 .income {
   font-size: 1.2rem;
   color: #aaa;
+  margin-top: 0.5rem;
 }
 
 .main-area {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
+  padding: 2rem 0;
 }
 
 .clickable-arm {
   cursor: pointer;
   transition: transform 0.1s;
   user-select: none;
-  filter: drop-shadow(0 0 15px rgba(57, 255, 20, 0.3));
+  filter: drop-shadow(0 0 15px rgba(210, 180, 140, 0.3));
 }
 
 .clickable-arm:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
 }
 
 .clickable-arm:hover {
-  filter: drop-shadow(0 0 25px rgba(57, 255, 20, 0.5));
+  filter: drop-shadow(0 0 25px rgba(210, 180, 140, 0.5));
 }
 
 .shop {
   width: 100%;
-  max-width: 800px;
-  margin-top: 3rem;
+  max-width: 1000px;
+  margin-top: 1rem;
 }
 
-.shop h2 {
+.shop-section {
+  margin-bottom: 3rem;
+}
+
+.shop-section h2 {
   color: var(--neon-green);
   border-bottom: 2px solid var(--neon-green);
   padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .upgrades-container, .trainers-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
-  margin-top: 1rem;
 }
 
 .shop-item {
   background: var(--card-bg);
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 1.2rem;
+  border-radius: 10px;
   border: 1px solid #333;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .shop-item:hover:not(.disabled) {
   border-color: var(--neon-green);
   background: #252525;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .shop-item.disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.shop-item.purchased {
+  border-color: gold;
+  background: rgba(255, 215, 0, 0.1);
+  cursor: default;
 }
 
 .item-icon {
-  width: 50px;
-  height: 50px;
-  fill: var(--neon-green);
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
 }
 
 .item-info {
@@ -135,72 +155,96 @@ h1 {
 
 .item-name {
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
 }
 
 .item-desc {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #888;
+  margin: 0.2rem 0;
 }
 
 .item-cost {
   color: var(--neon-orange);
   font-weight: bold;
+  font-size: 1rem;
 }
 
 .item-count {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--neon-green);
   font-weight: bold;
+  opacity: 0.8;
 }
 
 /* Golden Dumbbell */
 .golden-dumbbell {
   position: fixed;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   cursor: pointer;
   z-index: 100;
-  animation: float 15s linear forwards;
-  filter: drop-shadow(0 0 15px gold);
+  animation: floatAcross 15s linear forwards;
+  filter: drop-shadow(0 0 20px gold);
 }
 
-@keyframes float {
-  0% { left: -100px; top: 20%; }
+@keyframes floatAcross {
+  0% { left: -120px; top: 20%; transform: rotate(0deg); }
   25% { top: 60%; }
-  50% { top: 30%; }
+  50% { top: 30%; transform: rotate(180deg); }
   75% { top: 70%; }
-  100% { left: 100vw; top: 40%; }
+  100% { left: 100vw; top: 40%; transform: rotate(360deg); }
 }
 
 .multiplier-active {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
   background: gold;
   color: black;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 30px;
   font-weight: bold;
-  box-shadow: 0 0 15px gold;
-  animation: pulse 1s infinite alternate;
+  font-size: 1.2rem;
+  box-shadow: 0 0 20px gold;
+  animation: pulse 0.5s infinite alternate;
+  z-index: 1000;
 }
 
 @keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+  from { transform: scale(1); box-shadow: 0 0 10px gold; }
+  to { transform: scale(1.1); box-shadow: 0 0 30px gold; }
 }
 
 /* Floating text on click */
 .floating-text {
-  position: absolute;
+  position: fixed; /* Fixed relative to viewport for click tracking */
   color: var(--neon-orange);
   font-weight: bold;
+  font-size: 1.5rem;
   pointer-events: none;
-  animation: floatUp 0.8s ease-out forwards;
+  animation: floatUpFade 0.8s ease-out forwards;
+  z-index: 500;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-100px); opacity: 0; }
+@keyframes floatUpFade {
+  0% { transform: translate(-50%, -50%) translateY(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translateY(-100px); opacity: 0; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
 }
